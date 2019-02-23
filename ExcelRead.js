@@ -1,13 +1,12 @@
 let path = require("path");
 let fs = require("fs");
 
-//let { F } = require("../safeWrapper");
-let F = function(f){
-	return f;
-};
-
 let _r =require("ramda");
 let XLSX = require("xlsx");
+
+let F = function(f){
+	return f;
+}
 
 async function excelRead(filePath,nameRowNum,dataStartNum,dataEndNum){
 	let workbook = await XLSX.readFile(filePath);
