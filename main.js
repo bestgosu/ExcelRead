@@ -1,7 +1,7 @@
 let path = require("path");
-let excelRead = require("./ExcelRead.js");
+let excelRead = require("./index.js");
 
-excelRead(path.join(".","기업은행.xls"),2,3,50).then(datas=>{
+excelRead(path.join(".","example.xlsx"),1,2,5).then(datas=>{
 	console.log(datas);
 });
 

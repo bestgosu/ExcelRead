@@ -1,1 +1,7 @@
-excel 읽기 쉽게
+excel simple read function
+
+import xlsx.js and ramda.js
+
+function excelRead(filepath,nameRowNum,dataStartNum,dataEndNum) 
+=>json
+
