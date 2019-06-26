@@ -31,6 +31,31 @@ async function excelRead(filePath,nameRowNum,dataStartNum,dataEndNum){
 
 	return data;
 }
+
+async function excelReadByBinaryString(bstr,nameRowNum,dataStartNum,dataEndNum){
+	let workbook = XLSX.read(bstr,{type:'binary'});
+	let worksheet_name = workbook.SheetNames[0];
+	let worksheet = workbook.Sheets[worksheet_name];
+
+	let nameRow = _r.compose(
+		_r.map(key=>getValue(worksheet,key))
+		//,_r.tap(obj=>console.log(JSON.stringify(obj)))
+		,num=>F(getRowKeys)(worksheet,num)
+	)(nameRowNum);
+
+	let dataRowRange = _r.range(dataStartNum,dataEndNum);
+	let data = _r.map(num=>{
+		return _r.compose(
+			_r.zipObj(nameRow)
+			,_r.map(key=>getValue(worksheet,key))
+			//,_r.tap(obj=>console.log(JSON.stringify(obj)))
+			,num=>F(getRowKeys)(worksheet,num)
+		)(num);
+	})(dataRowRange);
+
+	return data;
+}
+
 function getDataKeys(worksheet){
 	let keys = _r.keys(worksheet);
 	let dataKeys = _r.filter(key=>{
@@ -65,4 +90,4 @@ function getColumnDatas(worksheet,columnChar){
 	return _r.map(key=>getValue(worksheet,key))(getColumnKeys(worksheet,columnChar))
 }
 
-module.exports = excelRead;
+module.exports = { excelRead, excelReadByBinaryString } ;

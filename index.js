@@ -1,3 +1,3 @@
-let ExcelRead = require("./ExcelRead.js");
+let { excelRead, excelReadByBinaryString }  = require("./ExcelRead.js");
 
-module.exports=ExcelRead;
+module.exports = { excelRead, excelReadByBinaryString };
