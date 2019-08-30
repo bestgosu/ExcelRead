@@ -12,5 +12,14 @@
   "dependencies": {
     "ramda": "^0.26.1",
     "xlsx": "^0.14.1"
-  }
+  },
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bestgosu/ExcelRead.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bestgosu/ExcelRead/issues"
+  },
+  "homepage": "https://github.com/bestgosu/ExcelRead#readme"
 }
