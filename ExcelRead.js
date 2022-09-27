@@ -91,3 +91,26 @@ function getColumnDatas(worksheet,columnChar){
 }
 
 module.exports = { excelRead, excelReadByBinaryString } ;
+
+
+//if main execute this
+if (require.main === module) {
+	//execute functions 
+
+	async function main() {
+		let workbook = await XLSX.readFile(path.join(".", "write.xlsx"));
+		let worksheet_name = workbook.SheetNames[0];
+		let worksheet = workbook.Sheets[worksheet_name];
+
+		//function name and function execute console
+		console.log("getDataKeys", getDataKeys(worksheet))
+		console.log("getRowKeys", getRowKeys(worksheet, 1))
+		console.log("getColumnKeys", getColumnKeys(worksheet, "A"))
+		console.log("getRowDatas", getRowDatas(worksheet, 1))
+		console.log("getColumnDatas", getColumnDatas(worksheet, "A"))
+
+		console.log(await excelRead(path.join(".", "write.xlsx"),1,2,5))
+
+	}
+	main();
+}
