@@ -1,8 +1,9 @@
-let { excelRead, excelReadByBinaryString } = require("./ExcelRead.js");
+let { excelRead, excelReadByBinaryString,getExcelArray } = require("./ExcelRead.js");
 let { excelWrite } = require("./ExcelWrite.js");
 
 module.exports = { 
     excelRead 
     ,excelReadByBinaryString 
     ,excelWrite
+    ,getExcelArray
 };
