@@ -94,7 +94,7 @@ function getLastRowNum(worksheet){
 	let lastKey = _r.last(getDataKeys(worksheet));
 	//let lastKey = "A101010"
 	//getNumberString from lastKey
-	return _r.match(new RegExp("[0-9]+","ig"),lastKey)[0];
+	return Number(_r.match(new RegExp("[0-9]+","ig"),lastKey)[0]);
 }
 
 function getExcelArray(worksheet){
@@ -126,7 +126,7 @@ if (require.main === module) {
 
 		console.log(await excelRead(path.join(".", "write.xlsx"),1,2,5))
 
-		console.log(getDataArray(worksheet))
+		console.log(getExcelArray(worksheet))
 
 	}
 	main();
