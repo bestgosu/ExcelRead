@@ -97,7 +97,11 @@ function getLastRowNum(worksheet){
 	return Number(_r.match(new RegExp("[0-9]+","ig"),lastKey)[0]);
 }
 
-function getExcelArray(worksheet){
+function getExcelArray(filePath){
+	let workbook = await XLSX.readFile(filePath);
+	let worksheet_name = workbook.SheetNames[0];
+	let worksheet = workbook.Sheets[worksheet_name];
+
 	let lastNum = getLastRowNum(worksheet);
 	let rowRange = _r.range(1,lastNum);
 	let excelArray = _r.map(num=>getRowDatas(worksheet,num))(rowRange);
