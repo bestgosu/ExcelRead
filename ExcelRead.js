@@ -90,12 +90,26 @@ function getColumnDatas(worksheet,columnChar){
 	return _r.map(key=>getValue(worksheet,key))(getColumnKeys(worksheet,columnChar))
 }
 
-module.exports = { excelRead, excelReadByBinaryString } ;
+function getLastRowNum(worksheet){
+	let lastKey = _r.last(getDataKeys(worksheet));
+	//let lastKey = "A101010"
+	//getNumberString from lastKey
+	return _r.match(new RegExp("[0-9]+","ig"),lastKey)[0];
+}
+
+function getExcelArray(worksheet){
+	let lastNum = getLastRowNum(worksheet);
+	let rowRange = _r.range(1,lastNum);
+	let excelArray = _r.map(num=>getRowDatas(worksheet,num))(rowRange);
+	return excelArray;
+}
+
+module.exports = { excelRead, excelReadByBinaryString,getExcelArray } ;
 
 
 //if main execute this
 if (require.main === module) {
-	//execute functions 
+	//execute functions
 
 	async function main() {
 		let workbook = await XLSX.readFile(path.join(".", "write.xlsx"));
@@ -103,13 +117,16 @@ if (require.main === module) {
 		let worksheet = workbook.Sheets[worksheet_name];
 
 		//function name and function execute console
+		console.log("worksheet",worksheet)
 		console.log("getDataKeys", getDataKeys(worksheet))
-		console.log("getRowKeys", getRowKeys(worksheet, 1))
-		console.log("getColumnKeys", getColumnKeys(worksheet, "A"))
-		console.log("getRowDatas", getRowDatas(worksheet, 1))
-		console.log("getColumnDatas", getColumnDatas(worksheet, "A"))
+		console.log("getRowKeys(1)", getRowKeys(worksheet, 1))
+		console.log("getColumnKeys(A)", getColumnKeys(worksheet, "A"))
+		console.log("getRowDatas(1)", getRowDatas(worksheet, 1))
+		console.log("getColumnDatas(A)", getColumnDatas(worksheet, "A"))
 
 		console.log(await excelRead(path.join(".", "write.xlsx"),1,2,5))
+
+		console.log(getDataArray(worksheet))
 
 	}
 	main();
